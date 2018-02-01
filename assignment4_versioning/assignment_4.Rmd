@@ -1,0 +1,47 @@
+---
+title: "Assignment 4"
+author: "mihir parikh"
+date: "1/31/2018"
+output:
+  html_document:
+    keep_md: true
+---
+
+#Fivethirtyeight Data
+```{r fivethirtyeight}
+library(fivethirtyeight)
+
+#find string name of eighteenth data set
+eighteenthItem <- data(package = "fivethirtyeight")$results[18,][3][[1]]
+
+#evaluate the string which returns the data set and set it to df
+df <- eval(as.name(eighteenthItem))
+
+#find url => vignette("fivethirtyeight", package = "fivethirtyeight")
+#http://fivethirtyeight.com/features/the-economic-guide-to-picking-a-college-major/
+
+#dimensions of set
+dim(df)
+
+#column names of set
+names(df)
+```
+
+#Data Summary 
+```{r data summary}
+#column names
+names(df)
+
+#number of columns
+ncol(df)
+
+#frequency table of majors
+major_count <- table(df$major_category)
+
+#plot
+par(las=2)
+barplot(major_count, xlab = "Major", ylab = "Frequency", main = "Frequency of College Majors Sampled", horiz=TRUE, col=c("cyan"))
+
+#write csv file of college_recent_grads data
+write.csv(df, file = "college_recent_grads.csv",row.names=FALSE)
+```
