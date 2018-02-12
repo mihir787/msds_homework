@@ -160,7 +160,31 @@ summary(df)</code></pre>
 rowBadRecord &lt;- grep(&quot;yyy&quot;, df$`first name`)
 
 #d. remove bad record
-df &lt;- df[-c(rowBadRecord),]</code></pre>
+y2016 &lt;- df[-c(rowBadRecord),]</code></pre>
+</div>
+<div id="data-merging" class="section level1">
+<h1>Data Merging</h1>
+<pre class="r"><code>#a. read text file and set column names
+y2015 &lt;- read.table(&quot;yob2015.txt&quot;, header = FALSE, sep = &quot;,&quot;)
+colnames(y2015) &lt;- c(&quot;first name&quot;, &quot;gender&quot; ,&quot;amount of children&quot;)
+
+#b. display last ten rows
+tail(y2015, 10)</code></pre>
+<pre><code>##       first name gender amount of children
+## 33054       Ziyu      M                  5
+## 33055       Zoel      M                  5
+## 33056      Zohar      M                  5
+## 33057     Zolton      M                  5
+## 33058       Zyah      M                  5
+## 33059     Zykell      M                  5
+## 33060     Zyking      M                  5
+## 33061      Zykir      M                  5
+## 33062      Zyrus      M                  5
+## 33063       Zyus      M                  5</code></pre>
+<pre class="r"><code>#It is interesting that all have 5 children, indicating that 5 children maybe the cutoff to make the list.
+
+#c. Merge data
+final &lt;- merge(y2015, y2016, by=&quot;first name&quot;, )</code></pre>
 </div>
 
 

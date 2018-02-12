@@ -67,5 +67,37 @@ head(df)
 rowBadRecord <- grep("yyy", df$`first name`)
 
 #d. remove bad record
-df <- df[-c(rowBadRecord),]
+y2016 <- df[-c(rowBadRecord),]
+```
+
+#Data Merging
+
+```r
+#a. read text file and set column names
+y2015 <- read.table("yob2015.txt", header = FALSE, sep = ",")
+colnames(y2015) <- c("first name", "gender" ,"amount of children")
+
+#b. display last ten rows
+tail(y2015, 10)
+```
+
+```
+##       first name gender amount of children
+## 33054       Ziyu      M                  5
+## 33055       Zoel      M                  5
+## 33056      Zohar      M                  5
+## 33057     Zolton      M                  5
+## 33058       Zyah      M                  5
+## 33059     Zykell      M                  5
+## 33060     Zyking      M                  5
+## 33061      Zykir      M                  5
+## 33062      Zyrus      M                  5
+## 33063       Zyus      M                  5
+```
+
+```r
+#It is interesting that all have 5 children, indicating that 5 children maybe the cutoff to make the list.
+
+#c. Merge data
+final <- merge(y2015, y2016, by="first name", )
 ```
