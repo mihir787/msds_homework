@@ -1,0 +1,27 @@
+---
+title: "Assignment 5 - Tidy Data"
+author: "mihir parikh"
+date: "2/12/2018"
+output:
+  html_document:
+    keep_md: true
+---
+
+#Data Munging
+```{r yob2016 munging}
+#a. read text file, set column names
+df <- read.table("yob2016.txt", header = FALSE, sep = ";")
+colnames(df) <- c("first name", "gender" ,"amount of children")
+
+#b. summary and structure of data
+summary(df)
+str(df)
+dim(df)
+head(df)
+
+#c. display bad record
+rowBadRecord <- grep("yyy", df$`first name`)
+
+#d. remove bad record
+df <- df[-c(rowBadRecord),]
+```
