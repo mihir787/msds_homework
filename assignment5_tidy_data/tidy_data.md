@@ -99,7 +99,7 @@ tail(y2015, 10)
 #It is interesting that all have 5 children, indicating that 5 children maybe the cutoff to make the list.
 
 #c. Merge data
-final <- merge(y2015, y2016, by="first name", )
+final <- merge(y2015, y2016, by="first name")
 ```
 
 #Data Summary
@@ -137,3 +137,6 @@ top10GirlNames[,1]
 #d. write to csv
 write.csv(top10GirlNames[,c("first name","Total")], file="top_10_girl_names.csv",row.names=FALSE)
 ```
+
+#Github Link
+https://github.com/mihir787/msds_homework/tree/master/assignment5_tidy_data

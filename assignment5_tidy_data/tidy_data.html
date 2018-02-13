@@ -184,7 +184,7 @@ tail(y2015, 10)</code></pre>
 <pre class="r"><code>#It is interesting that all have 5 children, indicating that 5 children maybe the cutoff to make the list.
 
 #c. Merge data
-final &lt;- merge(y2015, y2016, by=&quot;first name&quot;, )</code></pre>
+final &lt;- merge(y2015, y2016, by=&quot;first name&quot;)</code></pre>
 </div>
 <div id="data-summary" class="section level1">
 <h1>Data Summary</h1>
@@ -207,6 +207,10 @@ top10GirlNames[,1]</code></pre>
 ## 30553 Levels: Aaban Aabha Aabriella Aada Aadam Aadan Aadarsh Aaden ... Zyvon</code></pre>
 <pre class="r"><code>#d. write to csv
 write.csv(top10GirlNames[,c(&quot;first name&quot;,&quot;Total&quot;)], file=&quot;top_10_girl_names.csv&quot;,row.names=FALSE)</code></pre>
+</div>
+<div id="github-link" class="section level1">
+<h1>Github Link</h1>
+<p><a href="https://github.com/mihir787/msds_homework/tree/master/assignment5_tidy_data" class="uri">https://github.com/mihir787/msds_homework/tree/master/assignment5_tidy_data</a></p>
 </div>
 
 
