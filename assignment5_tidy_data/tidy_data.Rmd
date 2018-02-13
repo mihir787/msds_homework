@@ -39,3 +39,22 @@ tail(y2015, 10)
 #c. Merge data
 final <- merge(y2015, y2016, by="first name", )
 ```
+
+#Data Summary
+```{r summary}
+#a. add total column
+final$Total<- rowSums(final[, c(3, 5)])
+
+#b. sorted by total
+sortedFinal <- final[order(final$Total),]
+tail(sortedFinal, 10)[,1]
+
+#c. top 10 most popular girl names
+girlData <- final[final$gender.x == "F",]
+sortedGirlNames <- girlData[order(girlData$Total),]
+top10GirlNames <- tail(sortedGirlNames, 10)
+top10GirlNames[,1]
+
+#d. write to csv
+write.csv(top10GirlNames[,c("first name","Total")], file="top_10_girl_names.csv",row.names=FALSE)
+```

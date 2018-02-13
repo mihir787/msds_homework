@@ -101,3 +101,39 @@ tail(y2015, 10)
 #c. Merge data
 final <- merge(y2015, y2016, by="first name", )
 ```
+
+#Data Summary
+
+```r
+#a. add total column
+final$Total<- rowSums(final[, c(3, 5)])
+
+#b. sorted by total
+sortedFinal <- final[order(final$Total),]
+tail(sortedFinal, 10)[,1]
+```
+
+```
+##  [1] Isabella Jacob    William  Mason    Ava      Sophia   Liam    
+##  [8] Noah     Olivia   Emma    
+## 30553 Levels: Aaban Aabha Aabriella Aada Aadam Aadan Aadarsh Aaden ... Zyvon
+```
+
+```r
+#c. top 10 most popular girl names
+girlData <- final[final$gender.x == "F",]
+sortedGirlNames <- girlData[order(girlData$Total),]
+top10GirlNames <- tail(sortedGirlNames, 10)
+top10GirlNames[,1]
+```
+
+```
+##  [1] Harper    Emily     Abigail   Charlotte Mia       Isabella  Ava      
+##  [8] Sophia    Olivia    Emma     
+## 30553 Levels: Aaban Aabha Aabriella Aada Aadam Aadan Aadarsh Aaden ... Zyvon
+```
+
+```r
+#d. write to csv
+write.csv(top10GirlNames[,c("first name","Total")], file="top_10_girl_names.csv",row.names=FALSE)
+```

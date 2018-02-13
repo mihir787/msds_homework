@@ -186,6 +186,28 @@ tail(y2015, 10)</code></pre>
 #c. Merge data
 final &lt;- merge(y2015, y2016, by=&quot;first name&quot;, )</code></pre>
 </div>
+<div id="data-summary" class="section level1">
+<h1>Data Summary</h1>
+<pre class="r"><code>#a. add total column
+final$Total&lt;- rowSums(final[, c(3, 5)])
+
+#b. sorted by total
+sortedFinal &lt;- final[order(final$Total),]
+tail(sortedFinal, 10)[,1]</code></pre>
+<pre><code>##  [1] Isabella Jacob    William  Mason    Ava      Sophia   Liam    
+##  [8] Noah     Olivia   Emma    
+## 30553 Levels: Aaban Aabha Aabriella Aada Aadam Aadan Aadarsh Aaden ... Zyvon</code></pre>
+<pre class="r"><code>#c. top 10 most popular girl names
+girlData &lt;- final[final$gender.x == &quot;F&quot;,]
+sortedGirlNames &lt;- girlData[order(girlData$Total),]
+top10GirlNames &lt;- tail(sortedGirlNames, 10)
+top10GirlNames[,1]</code></pre>
+<pre><code>##  [1] Harper    Emily     Abigail   Charlotte Mia       Isabella  Ava      
+##  [8] Sophia    Olivia    Emma     
+## 30553 Levels: Aaban Aabha Aabriella Aada Aadam Aadan Aadarsh Aaden ... Zyvon</code></pre>
+<pre class="r"><code>#d. write to csv
+write.csv(top10GirlNames[,c(&quot;first name&quot;,&quot;Total&quot;)], file=&quot;top_10_girl_names.csv&quot;,row.names=FALSE)</code></pre>
+</div>
 
 
 
