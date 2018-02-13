@@ -1,0 +1,42 @@
+Object: df (32869 obs. of  3 variables)
+  first name (type: factor)
+    - 30295 levels
+  gender (type: factor)
+    - 2 levels: F, M
+  amount of Children (type: int)
+
+Object: y2016 (32868 obs. of  3 variables)
+  first name (type: factor)
+    - 30295 levels
+  gender (type: factor)
+    - 2 levels: F, M
+  amount of Children (type: int)
+
+Object: y2015 (33063 obs. of  3 variables)
+  first name (type: factor)
+    - 30553 levels
+  gender (type: factor)
+    - 2 levels: F, M
+  amount of Children (type: int)
+
+Object: final (31641 obs. of  6 variables)
+  first name (type: factor)
+    - 30553 levels
+  gender.x (type: factor)
+    - 2 levels: F, M
+  amount of Children.x (type: int)
+  gender.y
+    - 2 levels: F, M
+  amount of children.y (type: int)
+  Total (type: num)
+
+Object: girlData (17798 obs. of  6 variables)
+  first name (type: factor)
+    - 30553 levels
+  gender.x (type: factor)
+    - 2 levels: F, M
+  amount of Children.x (type: int)
+  gender.y
+    - 2 levels: F, M
+  amount of children.y (type: int)
+  Total (type: num)
