@@ -1,0 +1,92 @@
+---
+title: "Assignment 10"
+author: "Mihir Parikh"
+date: "3/20/2018"
+output:
+  html_document:
+    keep_md: true
+    fig_width: 7
+    fig_height: 7
+---
+
+```{r libraries, include=TRUE, message=FALSE, warning=FALSE}
+library("rvest")
+library("dplyr")
+library("data.table")
+library("ggplot2")
+```
+
+<center><h1>Question 1: Mental Health Clinics</h1></center>
+
+### a. Load Data
+```{r load_data}
+load("N-MHSS-2015-DS0001-data-r.rda")
+mh2015_puf <- data.frame(mh2015_puf)
+```
+
+### b. State Abbreviations
+```{r state_abbreviations}
+levels(unique(mh2015_puf$LST))
+```
+
+### c. Mainland Locations
+```{r mainland_locations}
+omitted <- c('AK','HI','VI','PR','PW','MP','MH','GU','FM','AS')
+mainlandStates <- mh2015_puf %>% filter(!trimws(as.character(LST)) %in% omitted)
+stateSummary <- mainlandStates %>% group_by(LST) %>% summarise(FREQUENCY = n()) %>% data.frame()
+colnames(stateSummary)[1] <- "STATE"
+stateSummary
+```
+
+### d. Frequency Plot
+```{r frequency_plot}
+ggplot(data=stateSummary, aes(reorder(STATE, FREQUENCY),FREQUENCY)) +
+  geom_bar(stat="identity", aes(fill=STATE))+ 
+  ggtitle('Frequency of VA Medical Centers by State in Mainland USA') + coord_flip() +
+  xlab('Mainland States of VA Medical Centers ') +
+  ylab('Frequency') +
+  theme(plot.title=element_text(hjust = .5)) +
+  theme(axis.text.y = element_text(hjust=2)) + theme(legend.position="none")
+```
+
+<center><h1>Question 2: Cleaning and Bringing In New Features</h1></center>
+
+### a. Try to Merge
+```{r attempted_merge}
+# The problem is that there are extra spaces in the State abbreviation names in the stateSummary dataframe. This causes the frequencies to be null.
+
+statesize <- read.csv(file="statesize.csv", header=TRUE, sep=",")
+colnames(stateSummary)[1] <- "Abbrev"
+merge(stateSummary, statesize, by="Abbrev", all.y=TRUE)
+```
+
+### b. Fix and Merge
+```{r merge}
+stateSummary$Abbrev = gsub(' ','',stateSummary$Abbrev)
+merged <- merge(stateSummary, statesize, by="Abbrev")
+merged
+```
+
+### c. Add Hospitals Per Thousand Square Miles
+```{r add_hospitals_per_thousand_sq_miles}
+merged$MedCentersPerThsdSqMiles <- merged$FREQUENCY/(merged$SqMiles/1000)
+head(merged, 10)
+```
+
+### d. Frequency Plot for Hospitals Per Thousand Square Miles
+```{r frequency_plot_thousand_sq_miles}
+ggplot(data = merged, aes(reorder(Abbrev, MedCentersPerThsdSqMiles), MedCentersPerThsdSqMiles)) +
+  geom_bar(stat="identity", aes(fill = Region)) + 
+  ggtitle('Density of VA Medical Centers Per Thousand Square Miles in Mainland USA') + coord_flip() +
+  scale_fill_brewer(palette="Dark2") +
+  xlab('Mainland States') +
+  ylab('Density per State (Medical Centers Per 1000 Square Miles)') +
+  theme(plot.title=element_text(hjust = .5)) +
+  theme(axis.text.y = element_text(hjust=1))
+```
+
+### e. What patterns are seen?
+
+Smaller states have higher frequencies of medical centers per thousand miles while larger states tend to have smaller frequencies. The Northeast appears to have a high frequency while the West appears to have the lowest frequency. I would request to my boss that we address looking at population density and creating an aggregate metric that weights the frequency based on distance with the frequency based on population.
+
+Github link: https://github.com/mihir787/msds_homework/tree/master/assignment10_exploratory_data
